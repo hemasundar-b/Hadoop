@@ -26,3 +26,6 @@ git commit -m 'First commit'
 git remote add origin remote repository URL
 
 git push origin master
+
+# to Update your local repository with lastest commits
+git pull
