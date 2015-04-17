@@ -14,6 +14,8 @@ public class AggregateReducer extends Reducer<IntWritable, MyCustomWritable, Nul
 			throws IOException, InterruptedException {
 		
 		Text maxRec = new Text();
+		Text minRec = new Text();
+		Long minSal = null ;
 		Long maxSal = null ;
 		Long salVar ;
 		
@@ -23,11 +25,15 @@ public class AggregateReducer extends Reducer<IntWritable, MyCustomWritable, Nul
 				maxSal = salVar;
 				maxRec.set(obj.toString());
 			}
+			
+			if (minSal == null || salVar < minSal){
+				minSal = salVar;
+				minRec.set(obj.toString());
+			}
+			
 		}
 		context.write(null,maxRec);
+		context.write(null,minRec);
 	}
-
-	
-	
 	
 }
