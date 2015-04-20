@@ -1,63 +1,64 @@
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.Text;
-import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
+import org.apache.hadoop.io.WritableUtils;
 
 
-public class MyCustomWritable implements Writable{
+public class MyCustomWritable implements WritableComparable<MyCustomWritable>{
 	
-	private Text ename;
-	private LongWritable sal;
-	private IntWritable dept;
+	private String ename;
+	private Long sal;
+	private Integer dept;
 
-	
 	public MyCustomWritable(){
-		ename = new Text();
-		sal = new LongWritable();
-		dept = new IntWritable();
 	}
 	
-	public MyCustomWritable(Text ename, LongWritable sal, IntWritable dept ){
+	public MyCustomWritable(String ename, long sal, int dept ){
 		
 		this.ename = ename;
 		this.sal = sal;
 		this.dept = dept;
 	}
-
 	
-	public LongWritable getsal(){
+	public Long getsal(){
 		return this.sal;
 	}
 
-	public IntWritable getDept(){
+	public Integer getDept(){
 		return this.dept;
 	}
 	
-	public Text getEname(){
+	public String getEname(){
 		return this.ename;
 	}
 	
 	@Override
 	public void readFields(DataInput in) throws IOException {
+		ename = WritableUtils.readString(in);
+		sal = in.readLong();
+		dept = in.readInt();
 		
-		ename.readFields(in);
-		sal.readFields(in);
-		dept.readFields(in);
 	}
 	@Override
 	public void write(DataOutput out) throws IOException {
-		ename.write(out);
-		sal.write(out);
-		dept.write(out);
+		WritableUtils.writeString(out,ename);
+		out.writeLong(sal);
+		out.writeInt(dept);
 	}
 	
 	public String toString(){
 		return ename.toString() + "|" +  sal.toString() + "|"+  dept.toString()   ;
 		
 	}
-
+	
+	@Override
+	public int compareTo(MyCustomWritable o) {
+		int cmp = this.dept.compareTo(o.dept);
+		if (cmp == 0) {
+			cmp = this.sal.compareTo(o.sal);	
+		}
+		
+		return cmp;
+	}
 }
