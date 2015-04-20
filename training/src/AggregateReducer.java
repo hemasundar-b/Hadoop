@@ -20,7 +20,7 @@ public class AggregateReducer extends Reducer<IntWritable, MyCustomWritable, Nul
 		Long salVar ;
 		
 		for ( MyCustomWritable obj : values){
-			salVar = obj.getsal().get();
+			salVar = obj.getsal();
 			if(maxSal == null ||  salVar > maxSal){
 				maxSal = salVar;
 				maxRec.set(obj.toString());
@@ -35,5 +35,8 @@ public class AggregateReducer extends Reducer<IntWritable, MyCustomWritable, Nul
 		context.write(null,maxRec);
 		context.write(null,minRec);
 	}
+
+	
+	
 	
 }
