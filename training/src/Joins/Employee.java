@@ -3,26 +3,54 @@ package Joins;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableUtils;
 
-import org.apache.hadoop.io.WritableComparable;
 
-public class Employee implements WritableComparable<Employee>{
+public class Employee implements Writable{
+	
+	private String ename;
+	private Long sal;
+	private Integer dept;
 
-	@Override
-	public void readFields(DataInput arg0) throws IOException {
-		// TODO Auto-generated method stub
+	public Employee(){
+	}
+	
+	public Employee(String ename, long sal, int dept ){
 		
+		this.ename = ename;
+		this.sal = sal;
+		this.dept = dept;
+	}
+	
+	public Long getsal(){
+		return this.sal;
 	}
 
+	public Integer getDept(){
+		return this.dept;
+	}
+	
+	public String getEname(){
+		return this.ename;
+	}
+	
 	@Override
-	public void write(DataOutput arg0) throws IOException {
-		// TODO Auto-generated method stub
+	public void readFields(DataInput in) throws IOException {
+		ename = WritableUtils.readString(in);
+		sal = in.readLong();
+		dept = in.readInt();
 		
 	}
-
 	@Override
-	public int compareTo(Employee o) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void write(DataOutput out) throws IOException {
+		WritableUtils.writeString(out,ename);
+		out.writeLong(sal);
+		out.writeInt(dept);
+	}
+	
+	public String toString(){
+		return ename.toString() + "|" +  sal.toString() + "|"+  dept.toString()   ;
+		
 	}
 }

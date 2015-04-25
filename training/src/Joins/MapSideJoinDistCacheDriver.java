@@ -7,7 +7,7 @@ public class MapSideJoinDistCacheDriver extends Configured implements Tool {
 
 	@Override
 	public int run(String[] arg0) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
