@@ -13,9 +13,9 @@ do
         expect <<-DONE
         spawn $cmd
         expect {
-                "*id_rsa*" { send \r ; exp_continue }
-                "*passphrase*" { send \r ; exp_continue }
-                "*again*" { send \r ; exp_continue }
+                "*id_rsa*" { send "\r" ; exp_continue }
+                "*passphrase*" { send "\r" ; exp_continue }
+                "*again*" { send "\r" ; exp_continue }
         }
         DONE
 done
