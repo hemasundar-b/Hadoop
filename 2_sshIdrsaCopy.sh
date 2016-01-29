@@ -16,7 +16,7 @@ do
                 expect <<- DONE
                 spawn $cmd
                 expect {
-                "*assword*"   { send $pass\r; exp_continue }
+                "*assword*"   { send "$pass\r"; exp_continue }
                 "*yes/no*"    { send "yes\r"; exp_continue }
                 "*assword*"  { send "$pass\r" ; exp_continue}
                 }
