@@ -45,4 +45,5 @@ done
 for i in $(cat $host_list)
 do
 sshpass -p $pass ssh $user@$i cat "$HOME/.ssh/id_rsa-*" ">>" "$HOME/.ssh/authorized_keys"
+sshpass -p $pass ssh $user@$i cat "$HOME/.ssh/id_rsa.pub" ">>" "$HOME/.ssh/authorized_keys"
 done
